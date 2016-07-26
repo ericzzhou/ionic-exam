@@ -1,0 +1,14 @@
+$ ionic start myApp sidemenu  					--创建带有左侧带有menu栏的示例项目
+$ ionic start myApp blank   					--创建空白项目
+
+$ ionic platform add ios 						--添加平台
+$ cordova platform add android  				--添加android运行平台
+
+$ ionic build ios								--编译指定平台文件包
+$ cordova build android   						--编译apk
+
+$ ionic emulate ios								--在设备上调试
+$ ionic serve									--启动服务，在浏览器调试
+$ cordova plugin add cordova-plugin-camera		--添加摄像头插件
+
+$ cordova run android  							--运行到真机
