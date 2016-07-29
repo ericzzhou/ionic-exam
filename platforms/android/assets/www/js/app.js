@@ -43,6 +43,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'LocalSt
     controller: 'POItemSearchController'
   })
 
+    .state('app.POInventory', {
+      url: '/Inventory',
+      templateUrl: 'templates/POInventory.html',
+      controller: 'POInventoryController'
+    })
+
+    .state('app.ViewPOReceive', {
+      url: '/ViewPOReceive',
+      templateUrl: 'templates/ViewPOReceive.html',
+      controller: 'ViewPOReceiveController'
+    })
+
   .state('app.welcome', {
     url: '/welcome',
     views: {

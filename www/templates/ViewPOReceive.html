@@ -1,0 +1,85 @@
+﻿
+<ion-view view-title="Camera" class="po-main">
+  <ion-header-bar align-title="left" class="bar-positive">
+    <div class="buttons">
+      <button class="button" ng-click="GoBack()">&lsaquo; Back</button>
+    </div>
+    <h1 class="title">预览PO收货</h1>
+  </ion-header-bar>
+  <ion-content class="view-po-receive">
+    <ion-list>
+      <ion-item>
+        <div class="list">
+          <div class="item item-input-inset">
+            <label> PO#:</label>
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="PO#" ng-model="keys.PONumber" disabled="disabled" />
+            </label>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        Vendor:ABC Food Ltd.
+      </ion-item>
+      <ion-item>
+        <div class="list">
+          <div class="item item-input-inset">
+            <label> UPC/G:</label>
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="UPC" ng-model="keys.UPCNumber" />
+            </label>
+
+          </div>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="row">
+          <div class="col col-33"></div>
+          <div class="col col-33">Qty:</div>
+          <div class="col col-34">Box:</div>
+        </div>
+        <div class="row">
+          <div class="col col-33" style="line-height:34px; height:34px;">36000216067</div>
+          <div class="col col-33"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+          <div class="col col-34"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+        </div>
+        <div class="row">
+          <div class="col col-33">36000216068</div>
+          <div class="col col-33"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+          <div class="col col-34"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+        </div>
+        <div class="row">
+          <div class="col col-33">36000216069</div>
+          <div class="col col-33"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+          <div class="col col-34"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+        </div>
+        <div class="row">
+          <div class="col col-33">36000216070</div>
+          <div class="col col-33"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+          <div class="col col-34"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+        </div>
+        <div class="row">
+          <div class="col col-33">36000216071</div>
+          <div class="col col-33"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+          <div class="col col-34"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="title">Item Reveived:30/52</div>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+  <ion-footer-bar align-title="left" class="">
+    <div class="buttons">
+      <button class="button " ng-click="GoBack()">&lsaquo;  Continue</button>
+    </div><h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button button-assertive">Complete</button>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>
+
+

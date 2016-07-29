@@ -1,0 +1,119 @@
+﻿
+<ion-view view-title="Camera" class="po-main">
+  <ion-header-bar align-title="left" class="bar-positive">
+    <div class="buttons">
+      <button class="button" ng-click="GoBack()">&lsaquo; Back</button>
+    </div>
+    <h1 class="title">PO收货点数</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <div class="list">
+          <div class="item item-input-inset">
+            <label> PO#:</label>
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="PO#" ng-model="keys.PONumber" disabled="disabled" />
+            </label>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        Vendor:ABC Food Ltd.
+      </ion-item>
+      <ion-item>
+        <div class="list">
+          <div class="item item-input-inset">
+            <label> UPC/G:</label>
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="UPC" ng-model="keys.UPCNumber" />
+            </label>
+
+          </div>
+        </div>
+      </ion-item>
+      <!--UPC 没有查到数据 begin-->
+      <ion-item>
+        <h2 style="text-align:center;font-weight:bold">UPC Not Found</h2>
+      </ion-item>
+      <ion-item style="text-align:center;">
+        <button class="button button-positive">
+          Request PM to Map Item
+        </button>
+      </ion-item>
+      <ion-item>
+        <div class="list">
+          <div class="item item-input-inset">
+            <label> Goods#:</label>
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="" ng-model="keys.PONumber" />
+            </label>
+            <button class="button button-positive" ng-click="searchPO()">
+              Add UPC
+            </button>
+          </div>
+        </div>
+      </ion-item>
+      <!--UPC 没有查到数据 end-->
+
+      <ion-item>
+        <div class="row">
+          <div class="col col-50">Invoice Qty:</div>
+          <div class="col col-50">Received Qty:</div>
+        </div>
+        <div class="row">
+          <div class="col col-50"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+          <div class="col col-50"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-50">Invoice Box:</div>
+          <div class="col col-50">Received Box:</div>
+        </div>
+        <div class="row">
+          <div class="col col-50"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+          <div class="col col-50"><input type="text" placeholder="UPC" ng-model="keys.UPCNumber" /></div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <label class="item item-input">
+          <span class="input-label">Exp Date</span>
+          <input type="date">
+        </label>
+      </ion-item>
+      <ion-item class="item-thumbnail-left">
+
+        <img src="img/ionic.png">
+
+        <h2>樱花面膜</h2>
+        <p>樱花面膜详细描述</p>
+
+        <ion-option-button class="button-positive"
+                           ng-click="share(item)">
+          分享
+        </ion-option-button>
+        <ion-option-button class="button-info"
+                           ng-click="edit(item)">
+          编辑
+        </ion-option-button>
+        <ion-delete-button class="ion-minus-circled"
+                           ng-click="items.splice($index, 1)">
+        </ion-delete-button>
+        <ion-reorder-button class="ion-navicon"
+                            on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+        </ion-reorder-button>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+  <ion-footer-bar align-title="left" class="">
+
+    <div class="buttons" ng-click="doSomething()">
+      <button class="button">&lsaquo; Confirm</button>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>
+
+

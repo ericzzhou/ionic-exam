@@ -28,7 +28,7 @@
             <label class="item-input-wrapper">
               <input type="text" placeholder="UPC" ng-model="keys.UPCNumber" />
             </label>
-            <button class="button button-positive" ng-click="searchUPC()">
+            <button class="button button-positive" ng-click="GoInventory()">
               GO
             </button>
           </div>
@@ -90,8 +90,8 @@
     <div class="buttons">
       <button class="button button-assertive">Complete</button>
     </div><h1 class="title"></h1>
-    <div class="buttons" ng-click="doSomething()">
-      <button class="button">View PO</button>
+    <div class="buttons" >
+      <button class="button" ng-click="ViewPOReceive()">View PO</button>
     </div>
   </ion-footer-bar>
 

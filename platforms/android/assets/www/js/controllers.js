@@ -187,4 +187,24 @@
   $scope.GoMain = function () {
     $state.go("app.main");
   };
-});
+  $scope.GoInventory = function () {
+    $state.go("app.POInventory");
+  };
+  $scope.ViewPOReceive = function () {
+    $state.go("app.ViewPOReceive");
+  }
+
+})
+.controller('POInventoryController', function ($scope, $timeout, $state) {
+  $scope.GoBack = function () {
+    $state.go("app.POItemSearch");
+  };
+
+})
+.controller('ViewPOReceiveController', function ($scope, $timeout, $state) {
+  $scope.GoBack = function () {
+    $state.go("app.POItemSearch");
+  };
+})
+
+;
