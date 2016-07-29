@@ -31,7 +31,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'LocalSt
       templateUrl: 'index.html',
       controller: 'AppCtrl'
     })
-
+ .state('app.start', {
+   url: '/start',
+   templateUrl: 'templates/start.html',
+   controller: 'StartController'
+ })
   .state('app.main', {
     url: '/main',
     templateUrl: 'templates/main.html',
@@ -85,5 +89,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'LocalSt
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/main');
+  $urlRouterProvider.otherwise('/app/start');
 });

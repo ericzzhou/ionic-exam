@@ -144,15 +144,18 @@
   //页面首次加载事件
   selectCategories();
 })
+
+.controller('StartController', function ($scope, $timeout, $ionicPopup, $state) {
+  $scope.GoMain = function () {
+    $state.go("app.main");
+  }
+})
 .controller('MainController', function ($scope, $timeout, $ionicPopup, $state) {
   $scope.keys = {
     UPCNumber: '', PONumber: ''
   };
   $scope.GoHome = function () {
-    $ionicPopup.alert({
-      title: '委屈',
-      template: '哪里有Home页面啊'
-    })
+    $state.go("app.start");
   };
   $scope.searchPO = function () {
     var po = $scope.keys.PONumber;
