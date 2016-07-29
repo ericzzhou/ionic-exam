@@ -1,23 +1,17 @@
-angular.module('starter.controllers', [])
-
-.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
-
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  // Form data for the login modal
-  $scope.loginData = {};
+﻿angular.module('starter.controllers', [])
+.controller('AppCtrl', function ($scope, $ionicModal, $timeout, common, localStorageService) {
+  $scope.loginData = {
+    username: "simon.miao@yamibuy.com",
+    password: "yami123"
+  };
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
-  }).then(function (modal) {
-    $scope.modal = modal;
-  });
+  })
+    .then(function (modal) {
+      $scope.modal = modal;
+    });
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function () {
@@ -29,12 +23,61 @@ angular.module('starter.controllers', [])
     $scope.modal.show();
   };
 
-  // Perform the login action when the user submits the login form
   $scope.doLogin = function () {
-    console.log('Doing login', $scope.loginData);
+    var login = common.login($scope.loginData.username, $scope.loginData.password);
+    login.success(function (data) {
+      if (data && data.messageId == "10000") {
+        var result = data.body;
+        if (result == null || result == undefined) {
+          $scope.errorMsg = '登录失败';
+        }
+        else {
+          localStorageService.set('user', result.admin);
+          localStorageService.set('token', result.token);
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
+          // #region 根据token获取用户信息
+          var permissionKey = common.getInfoByToken(result.token).success(function (tokenResult) {
+            if (tokenResult && tokenResult.messageId == "10000") {
+              var info = tokenResult.body;
+              if (info == null || info == undefined) {
+                $scope.errorMsg = '获取用户信息失败';
+              }
+              else {
+                localStorageService.set('menuList', info.menuList);
+                localStorageService.set('permissionKey', info.operationList);
+                localStorageService.set('userprofileList', info.userprofileList);
+                //if( info.seller != undefined ){
+                //  localStorageService.set('seller', info.seller);
+                //}
+                $timeout(function () {
+                  $scope.closeLogin();
+                }, 1000);
+              }
+            }
+          });
+          // #endregion
+        }
+      } else if (data && data.messageId == "99999") {
+        $scope.$apply(function () {
+          $scope.$apply(function () {
+            $scope.errorMsg = 'INVALID_USERNAME_PASSWORD';
+          });
+        });
+      } else {
+        $scope.$apply(function () {
+          $scope.$apply(function () {
+            $scope.errorMsg = 'something wrong';
+          });
+        });
+      }
+    });
+    login.fail(function (data) {
+      $scope.$apply(function () {
+        $scope.errorMsg = '网络异常';
+        alert('网络异常');
+      });
+    });
+
     $timeout(function () {
       $scope.closeLogin();
     }, 1000);
@@ -52,8 +95,8 @@ angular.module('starter.controllers', [])
       sourceType: Camera.PictureSourceType.CAMERA,
       allowEdit: true,
       encodingType: Camera.EncodingType.JPEG,
-      targetWidth: 100,
-      targetHeight: 100,
+      targetWidth: 200,
+      targetHeight: 200,
       popoverOptions: CameraPopoverOptions,
       saveToPhotoAlbum: false,
       correctOrientation: true
@@ -63,30 +106,85 @@ angular.module('starter.controllers', [])
       $scope.imageSrc = "data:image/jpeg;base64," + imageData;
       $scope.show_camera = false;
     }, function (err) {
-      console.log("����ͷ������Ƭʧ��");
+      console.log("摄像头保存照片失败");
     });
   };
 })
-  .controller('BluetoothController', function ($scope) {
-    $scope.playlists = [
-      { title: 'Reggae', id: 1 },
-      { title: 'Chill', id: 2 },
-      { title: 'Dubstep', id: 3 },
-      { title: 'Indie', id: 4 },
-      { title: 'Rap', id: 5 },
-      { title: 'Cowbell', id: 6 }
-    ];
-  })
-.controller('WelcomeController', function ($scope) {
-  $scope.driverInfo = [
-      //{ key: '�豸�汾', value: ionic.version() },
-      //{ key: '�豸ƽ̨', value: ionic.platform() },
-      //{ key: '�豸����', value: ionic.device() }
-       { key: 'Reggae', value: 1 },
-      { key: 'Chill', value: 2 },
-      { key: 'Dubstep', value: 3 },
-      { key: 'Indie', value: 4 },
-      { key: 'Rap', value: 5 },
-      { key: 'Cowbell', value: 6 }
+.controller('BluetoothController', function ($scope) {
+  $scope.playlists = [
+    { title: 'Reggae', id: 1 },
+    { title: 'Chill', id: 2 },
+    { title: 'Dubstep', id: 3 },
+    { title: 'Indie', id: 4 },
+    { title: 'Rap', id: 5 },
+    { title: 'Cowbell', id: 6 }
   ];
+})
+.controller('WelcomeController', function ($scope, $timeout, categoryService) {
+  var selectCategories = function () {
+    categoryService.queryStructureList()
+      .success(function (data) {
+        if (data.messageId == 10000) {
+          $timeout(function () {
+            $scope.categories = data.body;
+          });
+        }
+      })
+    .complete(function () {
+      // 停止广播ion-refresher
+      $scope.$broadcast('scroll.refreshComplete');
+    });;
+  };
+
+  //下拉事件
+  $scope.getCategories = function () {
+    selectCategories();
+  };
+
+  //页面首次加载事件
+  selectCategories();
+})
+.controller('MainController', function ($scope, $timeout, $ionicPopup, $state) {
+  $scope.keys = {
+    UPCNumber: '', PONumber: ''
+  };
+  $scope.GoHome = function () {
+    $ionicPopup.alert({
+      title: '委屈',
+      template: '哪里有Home页面啊'
+    })
+  };
+  $scope.searchPO = function () {
+    var po = $scope.keys.PONumber;
+    if (po == '') {
+      $ionicPopup.alert({
+        title: '警告',
+        template: '请输入PONumber'
+      })
+    } else {
+      $state.go("app.POItemSearch");
+    }
+  }
+
+  $scope.searchUPC = function () {
+    var m = $scope.keys.UPCNumber;
+
+    //$state.go("POItemSearch");
+
+
+    var alertPopup = $ionicPopup.alert({
+      title: '提示',
+      template: '这个按钮不能跳转'
+    });
+    alertPopup.then(function (res) {
+      console.log('Thank you for not eating my delicious ice cream cone');
+    });
+
+  }
+})
+
+.controller('POItemSearchController', function ($scope, $timeout, $state) {
+  $scope.GoMain = function () {
+    $state.go("app.main");
+  };
 });

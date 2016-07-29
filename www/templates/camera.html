@@ -1,9 +1,7 @@
 <ion-view view-title="Camera">
-  <ion-content>
+  <ion-content style="text-align:center;">
     <h1>Camera</h1>
-    <div>
-      <button ng-click="takePhoto()">Camera</button>
-    </div>
-    <div><img id="myImage" src="{{imageSrc}}" /></div>
+    <div><img id="myImage" ng-click="takePhoto()" ng-src="{{imageSrc}}" src="../img/ionic.png" style="width:200px; height:200px;" /></div>
+    <div>click img</div>
   </ion-content>
 </ion-view>

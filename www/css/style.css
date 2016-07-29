@@ -1,1 +1,31 @@
 /* Empty. Add your own CSS if you like */
+
+.item-input-inset .item-input-wrapper input {
+  padding-left: 4px;
+  height: 30px;
+  background: #fff;
+  border: solid 1px #d9caca;
+  line-height: 30px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+
+.item-input-wrapper {
+    background: #fff;
+}
+
+.button {
+      font-size: 5px;
+      line-height: 30px;
+      min-height: 30px;
+}
+
+.list-item-data
+{
+  float:left;
+}
+.list-item-img
+{
+  width:80px; height:80px;
+}

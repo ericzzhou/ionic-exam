@@ -1,12 +1,35 @@
 ﻿<ion-view view-title="Welcome">
+
   <ion-content>
-    <h1>Welcom 欢迎</h1>
-    <ul>
-      <li ng-repeat="item in driverInfo">
-        <span>{{item.key}}</span>
-        <span> - </span>
-        <span>{{item.value}}</span>
-      </li>
-    </ul>
+    <!--<ion-header-bar align-title="left" class="bar-positive">
+      <div class="buttons">
+        <button class="button" ng-click="doSomething()"> < </button>
+      </div>
+      <h1 class="title">Title!</h1>
+      <div class="buttons">
+        <button class="button">右侧按钮</button>
+      </div>
+    </ion-header-bar>-->
+    <ion-refresher pulling-text="下拉刷新..." refreshing-text="刷新成功"
+                   on-refresh="getCategories()">
+    </ion-refresher>
+    <ion-list show-delete="shouldShowDelete"
+              show-reorder="shouldShowReorder"
+              can-swipe="listCanSwipe">
+      <ion-item ng-repeat="item in categories">
+        {{item.category_id}}  {{item.category_name}}
+
+      </ion-item>
+    </ion-list>
+
   </ion-content>
+  <ion-footer-bar align-title="left" class="bar-assertive">
+    <div class="buttons">
+      <button class="button">左侧按钮</button>
+    </div>
+    <h1 class="title">Title!</h1>
+    <div class="buttons" ng-click="doSomething()">
+      <button class="button">右侧按钮</button>
+    </div>
+  </ion-footer-bar>
 </ion-view>
